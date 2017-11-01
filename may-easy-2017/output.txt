@@ -1,0 +1,16 @@
+aab
+abababc
+abc
+-1 -1
+aab
+abababc
+abc
+-1 -1
+aab
+abababc
+abc
+-1 -1
+aab
+abababc
+abc
+-1 -1
