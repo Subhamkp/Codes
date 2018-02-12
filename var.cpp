@@ -13,23 +13,29 @@ typedef vector<ll> vi;
 typedef pair<ll, ll> pii;
 typedef vector<pii> vii;
 
-const int mod = 1e9 + 7;
-const ll INF = 1LL << 62;
 
-ll power(ll x,ll y){
-  ll t=1;
-  while(y>0){
-    if(y&1) y-=1,t=t*x%mod;
-    else y/=2,x=x*x%mod;
-  }
-  return t;
+const int mod = 1e9 + 7;
+const ll inf = 1LL << 62;
+
+
+int D, X, Y;
+void extendedEuclid(int A, int B) {
+    if(B == 0) {
+        D = A;
+        X = 1;
+        Y = 0;
+    }
+    else {
+        extendedEuclid(B, A%B);
+        int temp = X;
+        X = Y;
+        Y = temp - (A/B)*Y;
+    }
 }
-ll inv(ll q){ll t;t=power(q,mod-2);return t;}
-ll gcd(ll a,ll b){return (b==0)?a:gcd(b, a%b);}
-ll lcm(ll a,ll b){return (a*(b / gcd(a, b))); }
 
 int main(){
-    // ios_base::sync_with_stdio(false);cin.tie(0);
-    cout<<"hello";
+    ios_base::sync_with_stdio(false);cin.tie(0);
+	cin>>a>>m;
+	    
 return 0;
 }

@@ -20,17 +20,40 @@ using namespace std;
 const int N = 1e5 + 10;
 const int mod = 1e9 + 7;
 const ll INF = 1LL << 62;
-ll power(ll x,ll y){
-  ll t=1;
-  while(y>0){
-    if(y&1) y-=1,t=t*x%mod;
-    else y/=2,x=x*x%mod;
-  }
-  return t;
-}
+
+ll power(ll x,ll y){ll t=1;while(y>0){if(y&1) y-=1,t=t*x%mod;else y/=2,x=x*x%mod;}return t;}
 ll inverse(ll q){ll t;t=power(q,mod-2);return t;}
 ll gcd(ll a,ll b){return (b==0)?a:gcd(b, a%b);}
 ll lcm(ll a,ll b){return (a*(b / gcd(a, b))); }
+ll fact(ll n){ll res=1;while(n)res=(res*(n--))%mod;return res;}
+
+ll binomialCoeff( ll n, ll k )
+{
+    if (k > n) return 0;
+    if (k * 2 > n) k = n-k;
+    if (k == 0) return 1;
+    ll result = n;
+    for( int i = 2; i <= k; ++i ) {
+        res= (res*(n-i+1))%mod;
+        res= (res*inverse(i))%mod;
+    }
+    return res;
+}
+
+int G, coeffx, coeffy;
+void extendedEuclid(int A, int B) {
+    if(B == 0) {
+        G = A;
+        coeffx = 1;
+        coeffy = 0;
+    }
+    else {
+        extendedEuclid(B, A%B);
+        int temp = coeffx;
+        coeffx = coeffy;
+        coeffy = temp - (A/B)*coeffy;
+    }
+}
 
 map<ll, ll> F;
 ll f(ll n){   // for standard fibo only i.e 0,1
@@ -47,7 +70,8 @@ ll f(ll n){   // for standard fibo only i.e 0,1
 		return F[n] = (f(k+1)*f(k+1) + f(k)*f(k)) % mod;
 	}
 }
-void fact(int n)//for n>20 else use storing
+
+void highfact(int n)//for n>20 else use storing
 {  int a[200],m=1,temp=0,i,j,x;a[0]=1;
     for(i=1;i<=n;i++){
         for(j=0;j<m;j++){
@@ -90,19 +114,6 @@ bool cmp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.ft!=p2.ft)
         return p1.ft<p2.ft;
     return p1.sd>p2.sd;
-}
-
-ll nck( ll n, ll k )
-{
-    if (k > n) return 0;
-    if (k * 2 > n) k = n-k;
-    if (k == 0) return 1;
-    int result = n;
-    for( int i = 2; i <= k; ++i ) {
-        result *= (n-i+1);
-        result /= i;
-    }
-    return result;
 }
 
 int main(){
