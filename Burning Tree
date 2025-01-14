@@ -1,0 +1,71 @@
+https://www.geeksforgeeks.org/problems/burning-tree
+
+class Solution {
+    /*class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    }*/
+
+
+    public static int res = 0;
+    public static int minTime(Node root, int target) {
+        // code here
+        res = 0;
+        targetHeight=0;
+        // distancefromRoot(root,0);
+        solve(root,target);
+        return res;
+    }
+    
+    public static int targetHeight = 0;
+    public static Pair solve(Node root, int target) {
+        if(root == null) return new Pair(false,0);
+        if(root.data == target) {
+            targetHeight = height(root);
+            res = Math.max(res,targetHeight - 1);
+            // System.out.println("targetHeight "+height(root));
+            return new Pair(true,1);
+        }
+        Pair left = solve(root.left,target);
+        if(left.found) {
+            res = Math.max(res, left.d + height(root.right));
+            // System.out.println("left "+root.data+" "+ left.d +" "+ (height(root.right)));
+            left.d = left.d + 1;
+            return left;
+        }
+        
+        Pair right = solve(root.right,target);
+        if(right.found) {
+            res = Math.max(res, right.d + height(root.left));  
+            // System.out.println("right "+root.data +" "+ right.d +" "+ (height(root.left)));
+            right.d = right.d + 1;
+            return right;
+        }
+        return new Pair(false,0);
+    }
+    
+    public static int height(Node root) {
+        // code here
+        if(root == null) return 0;
+        int left = height(root.left);
+        int right = height(root.right);
+        return Math.max(left,right) + 1;
+    }
+    
+}
+
+class Pair {
+    boolean found;
+    int d;
+    Pair(boolean found, int d) {
+        this.found = found;
+        this.d = d;
+    }
+}
